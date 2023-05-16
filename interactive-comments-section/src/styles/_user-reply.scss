@@ -1,16 +1,16 @@
 @use "variable";
 
 .user-reply-container {
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 
   .reply-wrapper {
-    width: 90%;
+    width: 95%;
     background-color: white;
     border-radius: 0.75rem;
-
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -63,10 +63,16 @@
       letter-spacing: 0.5px;
       line-height: 1.25rem;
       font-size: 0.85rem;
+
       span {
         font-weight: 700;
         color: variable.$Moderateblue;
       }
+    }
+
+    .edit-comment {
+      width: 100%;
+      height: 5rem;
     }
 
     .btn-container {
@@ -114,6 +120,13 @@
 
         .delete {
           color: variable.$SoftRed;
+        }
+
+        .update {
+          border-radius: 0.5rem;
+          padding: 0.5rem 0.75rem;
+          background: variable.$Moderateblue;
+          color: white;
         }
       }
     }

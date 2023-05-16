@@ -87,11 +87,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  border-left: 1px solid black;
+  border-left: 1px solid hsl(223, 19%, 93%);
   gap: 1rem;
 }
 .reply-container .reply-wrapper {
-  width: 90%;
+  width: 95%;
   background-color: white;
   border-radius: 0.75rem;
   padding: 1rem;
@@ -179,13 +179,14 @@
 }
 
 .user-reply-container {
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 .user-reply-container .reply-wrapper {
-  width: 90%;
+  width: 95%;
   background-color: white;
   border-radius: 0.75rem;
   padding: 1rem;
@@ -241,6 +242,10 @@
   font-weight: 700;
   color: hsl(238, 40%, 52%);
 }
+.user-reply-container .reply-wrapper .edit-comment {
+  width: 100%;
+  height: 5rem;
+}
 .user-reply-container .reply-wrapper .btn-container {
   display: flex;
   justify-content: space-between;
@@ -287,9 +292,14 @@
 .user-reply-container .reply-wrapper .btn-container .edit-wrapper .delete {
   color: hsl(358, 79%, 66%);
 }
+.user-reply-container .reply-wrapper .btn-container .edit-wrapper .update {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: hsl(238, 40%, 52%);
+  color: white;
+}
 
 .add-comment-container {
-  margin-bottom: 2rem;
   height: auto;
 }
 .add-comment-container .add-comment-container {
@@ -300,7 +310,7 @@
   border-radius: 0.5rem;
   padding: 1rem;
 }
-.add-comment-container .add-comment-container input {
+.add-comment-container .add-comment-container textarea {
   border-radius: 0.5rem;
   width: 100%;
   height: 5rem;
@@ -335,11 +345,12 @@
 
 .main-wrapper {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: 1px solid;
 }
 
 * {

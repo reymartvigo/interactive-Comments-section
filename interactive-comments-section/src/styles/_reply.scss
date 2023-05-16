@@ -5,11 +5,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  border-left: 1px solid black;
+  border-left: 1px solid variable.$Lightgray;
   gap: 1rem;
 
   .reply-wrapper {
-    width: 90%;
+    width: 95%;
     background-color: white;
     border-radius: 0.75rem;
 

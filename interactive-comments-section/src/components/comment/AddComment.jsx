@@ -6,7 +6,7 @@ const AddComment = () => {
     return (
         <div className="add-comment-container">
             <div className="add-comment-container">
-                <input type="text" placeholder="Add a comment..."></input>
+                <textarea name="comment" placeholder="Add a comment..."></textarea>
 
                 <div>
                     <img src={juliusomo} alt="" aria-hidden="true" />
