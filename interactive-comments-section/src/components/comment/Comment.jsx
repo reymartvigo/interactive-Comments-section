@@ -22,31 +22,33 @@ const Comment = ({ avatar, username, time, content, likes }) => {
     }
 
     return (
-        <div className="comment-wrapper">
-            <div className="user-wrapper">
-                <div className="user">
-                    <img src={avatar} aria-hidden="true" alt=""></img>
-                    <span>{username}</span>
+        <div className="comment-container">
+            <div className="comment-wrapper">
+                <div className="user-wrapper">
+                    <div className="user">
+                        <img src={avatar} aria-hidden="true" alt=""></img>
+                        <span>{username}</span>
+                    </div>
+
+                    <div className="time">
+                        <span>{time} </span>
+                    </div>
                 </div>
 
-                <div className="time">
-                    <span>{time} </span>
-                </div>
-            </div>
-
-            <div className="comment">
-                {content}
-            </div>
-
-            <div className="btn-container">
-                <div className="button-wrapper">
-                    <button aria-label="add" onClick={handleLike}><img src={iconPlus} aria-label='true' alt=""></img></button>
-                    <span>{likeCount}</span>
-                    <button aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
+                <div className="comment">
+                    {content}
                 </div>
 
-                <div className="reply-wrapper">
-                    <button aria-label="reply"><img src={iconReply} aria-label='true' alt=""></img>Reply</button>
+                <div className="btn-container">
+                    <div className="button-wrapper">
+                        <button aria-label="add" onClick={handleLike}><img src={iconPlus} aria-label='true' alt=""></img></button>
+                        <span>{likeCount}</span>
+                        <button aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
+                    </div>
+
+                    <div className="reply-wrapper">
+                        <button aria-label="reply"><img src={iconReply} aria-label='true' alt=""></img>Reply</button>
+                    </div>
                 </div>
             </div>
         </div>

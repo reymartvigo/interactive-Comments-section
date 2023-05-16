@@ -1,5 +1,7 @@
 @use "comments";
-
+@use "reply";
+@use "user-reply";
+@use "addComment";
 .main-wrapper {
   width: 100%;
   height: 100vh;
