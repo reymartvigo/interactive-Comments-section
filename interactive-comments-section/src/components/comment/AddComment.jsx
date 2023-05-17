@@ -5,7 +5,7 @@ import juliusomo from '../../assets/avatars/image-juliusomo.png';
 const AddComment = () => {
     return (
         <div className="add-comment-container">
-            <div className="add-comment-container">
+            <div className="add-comment-wrapper">
                 <textarea name="comment" placeholder="Add a comment..."></textarea>
 
                 <div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 
 
@@ -8,10 +8,18 @@ import iconMinus from '../../assets/icon-minus.svg';
 import iconReply from '../../assets/icon-reply.svg';
 /* ICONS  */
 
+import UserComment from './UserComment'
+
 
 const Comment = ({ avatar, username, time, content, likes }) => {
 
     const [likeCount, setLikeCount] = useState(likes)
+    const [isReply, setIsReply] = useState(false);
+
+
+    const handleReply = () => {
+        setIsReply(true)
+    }
 
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
@@ -20,6 +28,24 @@ const Comment = ({ avatar, username, time, content, likes }) => {
     const handleDislike = () => {
         setLikeCount(prevCount => prevCount - 1)
     }
+
+    const commentRef = useRef(null);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    const handleOutsideClick = (event) => {
+        if (commentRef.current && !commentRef.current.contains(event.target)) {
+            setIsReply(false);
+        }
+    };
+
+
+
 
     return (
         <div className="comment-container">
@@ -47,10 +73,20 @@ const Comment = ({ avatar, username, time, content, likes }) => {
                     </div>
 
                     <div className="reply-wrapper">
-                        <button aria-label="reply"><img src={iconReply} aria-label='true' alt=""></img>Reply</button>
+
+                        <button aria-label="reply" onClick={handleReply}><img src={iconReply} aria-label='true' alt=""></img>Reply</button>
                     </div>
                 </div>
             </div>
+
+            {isReply && (
+                <div ref={commentRef}>
+                    <UserComment
+                        username={username}
+                        onBlur={() => setIsReply(false)}
+                    />
+                </div>
+            )}
         </div>
     )
 }

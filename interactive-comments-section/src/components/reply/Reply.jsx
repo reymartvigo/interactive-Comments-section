@@ -15,7 +15,6 @@ import UserReply from './UserReply';
 const Reply = ({ avatar, username, time, content, likes, tag }) => {
 
     const [likeCount, setLikeCount] = useState(likes)
-
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
     }
@@ -25,7 +24,7 @@ const Reply = ({ avatar, username, time, content, likes, tag }) => {
     }
     return (
         <>
-            <div class="reply-container">
+            <div className="reply-container">
                 <div className="reply-wrapper">
                     <div className="other-wrapper">
                         <div className="user">

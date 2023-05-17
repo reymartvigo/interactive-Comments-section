@@ -1,6 +1,9 @@
 @use "variable";
 
 .comment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   .comment-wrapper {
     background-color: white;
     border-radius: 0.75rem;
@@ -39,6 +42,8 @@
       }
     }
 
+
+    // USER COMMENT
     .comment {
       color: variable.$Grayishblue;
       letter-spacing: 0.5px;
@@ -83,6 +88,58 @@
           background: none;
           outline: none;
           border: none;
+        }
+      }
+    }
+  }
+
+  .add-user-comment-container {
+    height: auto;
+
+    .add-user-comment-wrapper {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-radius: 0.5rem;
+      padding: 1rem;
+
+      .comment {
+        border-radius: 0.5rem;
+        width: 100%;
+        height: 5rem;
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        outline: none;
+        border: 1px solid variable.$Lightgray;
+      }
+      .comment::placeholder {
+        font-weight: 700;
+        color: variable.$Moderateblue;
+      }
+
+      div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+
+        button {
+          background-color: variable.$Moderateblue;
+          color: white;
+          font-weight: 500;
+          border: none;
+          outline: none;
+          padding: 0.75rem 1.25rem;
+          border-radius: 0.5rem;
+          cursor: pointer;
         }
       }
     }
