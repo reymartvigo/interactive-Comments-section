@@ -1,5 +1,6 @@
 @use "variable";
 .add-comment-container {
+  border-left: 1px solid variable.$Lightgray;
   height: auto;
 
   .add-comment-wrapper {

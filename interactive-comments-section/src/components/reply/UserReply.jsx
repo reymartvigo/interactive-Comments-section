@@ -9,6 +9,9 @@ import iconDelete from '../../assets/icon-delete.svg';
 import iconEdit from '../../assets/icon-edit.svg';
 /* ICONS  */
 
+
+
+
 const UserReply = ({ avatar, username, time, content, likes, tag }) => {
 
     const [editMode, setEditable] = useState(false)
@@ -95,6 +98,8 @@ const UserReply = ({ avatar, username, time, content, likes, tag }) => {
                     </div>
                 </div>
             </div>
+
+
         </>
     )
 }

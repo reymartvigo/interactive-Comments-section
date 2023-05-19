@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 
 
 
@@ -7,8 +7,9 @@ import iconPlus from '../../assets/icon-plus.svg';
 import iconMinus from '../../assets/icon-minus.svg';
 import iconReply from '../../assets/icon-reply.svg';
 /* ICONS  */
-
+import juliusomo from '../../assets/avatars/image-juliusomo.png';
 import UserComment from './UserComment'
+
 
 
 const Comment = ({ avatar, username, time, content, likes }) => {
@@ -29,20 +30,8 @@ const Comment = ({ avatar, username, time, content, likes }) => {
         setLikeCount(prevCount => prevCount - 1)
     }
 
-    const commentRef = useRef(null);
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, []);
 
-    const handleOutsideClick = (event) => {
-        if (commentRef.current && !commentRef.current.contains(event.target)) {
-            setIsReply(false);
-        }
-    };
 
 
 
@@ -79,8 +68,9 @@ const Comment = ({ avatar, username, time, content, likes }) => {
                 </div>
             </div>
 
+
             {isReply && (
-                <div ref={commentRef}>
+                <div className="userComment">
                     <UserComment
                         username={username}
                         onBlur={() => setIsReply(false)}
