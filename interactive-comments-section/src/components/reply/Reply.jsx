@@ -11,10 +11,22 @@ import juliusomo from '../../assets/avatars/image-juliusomo.png';
 /* ICONS  */
 
 import UserReply from './UserReply';
+import UserComment from "../comment/UserComment";
 
 const Reply = ({ avatar, username, time, content, likes, tag }) => {
 
     const [likeCount, setLikeCount] = useState(likes)
+    const [isReply, setIsReply] = useState(false);
+    const [replyComments, setReplyComment] = useState([]);
+
+    const handleReply = () => {
+        setIsReply(true)
+
+        setReplyComment((prevComments) => [
+            ...prevComments,
+            <UserComment key={prevComments.length} username={username} />
+        ]);
+    }
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
     }
@@ -49,15 +61,20 @@ const Reply = ({ avatar, username, time, content, likes, tag }) => {
                         </div>
 
                         <div className="reply-wrapper">
-                            <button aria-label="reply"><img src={iconReply} aria-label='true' alt=""></img>Reply</button>
+                            <button aria-label="reply" onClick={handleReply}><img src={iconReply} aria-label='true' alt="" ></img>Reply</button>
                         </div>
                     </div>
                 </div>
 
+                {isReply && (
+                    <div className="userComment">
+                        {replyComments}
+                    </div>
+                )}
+
                 <UserReply
                     avatar={juliusomo}
                     username="juliusomo"
-                    time="2 days ago"
                     tag="@ramsesmiron"
                     content="I coudn't agree more with this. Everything moves so fast and it always seems like everyone konow the newest library/framework. But the fundamentals are what stay constant."
                     likes={2}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 
@@ -7,20 +7,29 @@ import iconPlus from '../../assets/icon-plus.svg';
 import iconMinus from '../../assets/icon-minus.svg';
 import iconReply from '../../assets/icon-reply.svg';
 /* ICONS  */
-import juliusomo from '../../assets/avatars/image-juliusomo.png';
+
 import UserComment from './UserComment'
 
 
 
 const Comment = ({ avatar, username, time, content, likes }) => {
 
-    const [likeCount, setLikeCount] = useState(likes)
+    const [likeCount, setLikeCount] = useState(likes);
     const [isReply, setIsReply] = useState(false);
+    const [replyComments, setReplyComments] = useState([]);
+
 
 
     const handleReply = () => {
-        setIsReply(true)
-    }
+        setIsReply(true);
+
+        const newComment = {
+            username: username,
+        };
+
+        setReplyComments(prevComments => [...prevComments, newComment]);
+    };
+
 
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
@@ -29,11 +38,6 @@ const Comment = ({ avatar, username, time, content, likes }) => {
     const handleDislike = () => {
         setLikeCount(prevCount => prevCount - 1)
     }
-
-
-
-
-
 
 
     return (
@@ -71,10 +75,9 @@ const Comment = ({ avatar, username, time, content, likes }) => {
 
             {isReply && (
                 <div className="userComment">
-                    <UserComment
-                        username={username}
-                        onBlur={() => setIsReply(false)}
-                    />
+                    {replyComments.map((comment, index) => (
+                        <UserComment key={index} username={comment.username} />
+                    ))}
                 </div>
             )}
         </div>

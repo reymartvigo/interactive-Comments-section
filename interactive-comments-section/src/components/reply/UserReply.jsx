@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import React from 'react'
 
 
@@ -12,11 +12,22 @@ import iconEdit from '../../assets/icon-edit.svg';
 
 
 
-const UserReply = ({ avatar, username, time, content, likes, tag }) => {
+const UserReply = ({ avatar, username, content, likes, tag, onDelete, index }) => {
 
     const [editMode, setEditable] = useState(false)
     const [editedContent, setEditedContent] = useState(content)
     const [likeCount, setLikeCount] = useState(likes)
+    const [deleteMode, setDeleteMode] = useState(false)
+
+
+    const deleteModalRef = useRef(null)
+
+
+    useEffect(() => {
+        if (deleteMode) {
+            deleteModalRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [deleteMode]);
 
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
@@ -40,6 +51,18 @@ const UserReply = ({ avatar, username, time, content, likes, tag }) => {
         setEditedContent(e.target.value)
     }
 
+    const handleDeleteContent = () => {
+        onDelete();
+    }
+
+    const handleShowDelete = () => {
+        setDeleteMode(true)
+    }
+
+    const handleCancelDelete = () => {
+        setDeleteMode(false)
+    }
+
 
     return (
         <>
@@ -53,7 +76,7 @@ const UserReply = ({ avatar, username, time, content, likes, tag }) => {
                         </div>
 
                         <div className="time">
-                            <span>{time}</span>
+                            <span></span>
                         </div>
                     </div>
 
@@ -77,7 +100,7 @@ const UserReply = ({ avatar, username, time, content, likes, tag }) => {
 
                         <div className="edit-wrapper">
                             {!editMode && (
-                                <button className="delete" aria-label="delete">
+                                <button className="delete" aria-label="delete" onClick={handleShowDelete}>
                                     <img src={iconDelete} aria-label="true" alt="" />
                                     Delete
                                 </button>
@@ -94,9 +117,28 @@ const UserReply = ({ avatar, username, time, content, likes, tag }) => {
                                     </button>
                                 </>
                             )}
+
+
                         </div>
                     </div>
                 </div>
+
+                {deleteMode && (
+                    <div className="deleteContainer" ref={deleteModalRef}>
+                        <div className="delete-wrapper" >
+                            <h2>Delete comment</h2>
+                            <span>Are you sure you want to delete this comment. This will remove the comment and can't be undone.</span>
+                            <div className="option-wrapper">
+                                <button className="cancel" aria-label="cancel" onClick={handleCancelDelete}>
+                                    NO, CANCEL
+                                </button>
+                                <button className="delete" aria-label="delete" onClick={handleDeleteContent}>
+                                    YES, DELETE
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
 
