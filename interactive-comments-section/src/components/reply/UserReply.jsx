@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import React from 'react'
 
-
+import '../../styles/user-reply.css';
 /* ICONS  */
 import iconPlus from '../../assets/icon-plus.svg';
 import iconMinus from '../../assets/icon-minus.svg';
@@ -9,19 +9,13 @@ import iconDelete from '../../assets/icon-delete.svg';
 import iconEdit from '../../assets/icon-edit.svg';
 /* ICONS  */
 
-
-
-
-const UserReply = ({ avatar, username, content, likes, tag, onDelete, index }) => {
+const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
 
     const [editMode, setEditable] = useState(false)
     const [editedContent, setEditedContent] = useState(content)
     const [likeCount, setLikeCount] = useState(likes)
     const [deleteMode, setDeleteMode] = useState(false)
-
-
     const deleteModalRef = useRef(null)
-
 
     useEffect(() => {
         if (deleteMode) {

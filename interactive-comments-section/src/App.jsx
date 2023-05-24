@@ -11,14 +11,22 @@ import max from './assets/avatars/image-maxblagun.png';
 import ram from './assets/avatars/image-ramsesmiron.png';
 /* AVATARS  */
 
-/* ICONS  */
+/* ICONS */
+import iconPlus from './assets/icon-plus.svg';
+import iconMinus from './assets/icon-minus.svg';
+import iconDelete from './assets/icon-delete.svg';
+import iconEdit from './assets/icon-edit.svg';
+/* ICONS */
 
 
 import Comment from './components/comment/Comment'
 import Reply from './components/reply/Reply';
+
 import AddComment from './components/comment/AddComment';
 
 function App() {
+
+
 
   return (
     <>

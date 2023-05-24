@@ -10,7 +10,7 @@ import iconReply from '../../assets/icon-reply.svg';
 import juliusomo from '../../assets/avatars/image-juliusomo.png';
 /* ICONS  */
 
-import UserReply from './UserReply';
+
 import UserComment from "../comment/UserComment";
 
 const Reply = ({ avatar, username, time, content, likes, tag }) => {
@@ -72,13 +72,7 @@ const Reply = ({ avatar, username, time, content, likes, tag }) => {
                     </div>
                 )}
 
-                <UserReply
-                    avatar={juliusomo}
-                    username="juliusomo"
-                    tag="@ramsesmiron"
-                    content="I coudn't agree more with this. Everything moves so fast and it always seems like everyone konow the newest library/framework. But the fundamentals are what stay constant."
-                    likes={2}
-                />
+
             </div>
 
 
