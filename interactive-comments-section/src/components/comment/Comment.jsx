@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import iconPlus from '../../assets/icon-plus.svg';
 import iconMinus from '../../assets/icon-minus.svg';
@@ -7,13 +7,26 @@ import iconReply from '../../assets/icon-reply.svg';
 import UserComment from './UserComment';
 import UserReply from '../reply/UserReply';
 
-const Comment = ({ avatar, username, time, content, likes }) => {
+const Comment = ({ avatar, username, time, content, likes, id }) => {
     const [likeCount, setLikeCount] = useState(likes);
     const [isReply, setIsReply] = useState(false);
-    const [replyComments, setReplyComments] = useState([]);
-    const [replies, setReplies] = useState([]);
+    const [replyComments, setReplyComments] = useState([])
 
+    const [replies, setReplies] = useState(() => {
+        const savedReplies = localStorage.getItem(`replies_${id}`);
+        return savedReplies ? JSON.parse(savedReplies) : [];
+    });
 
+    useEffect(() => {
+        const saveReplies = localStorage.getItem(`replies_${id}`);
+        if (saveReplies) {
+            setReplies(JSON.parse(saveReplies));
+        }
+    }, [id]);
+
+    useEffect(() => {
+        localStorage.setItem(`replies_${id}`, JSON.stringify(replies));
+    }, [id, replies]);
 
 
     const handleAddReply = (reply) => {
@@ -38,6 +51,7 @@ const Comment = ({ avatar, username, time, content, likes }) => {
         setLikeCount((prevCount) => prevCount - 1);
     };
 
+
     const handleDeleteContent = (index) => {
         setReplies((prevReplies) => {
             const updatedReplies = [...prevReplies];
@@ -45,6 +59,8 @@ const Comment = ({ avatar, username, time, content, likes }) => {
             return updatedReplies;
         });
     };
+
+
 
     return (
         <>

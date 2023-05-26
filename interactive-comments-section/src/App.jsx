@@ -32,6 +32,7 @@ function App() {
     <>
       <div className="main-wrapper">
         <Comment
+          id="1"
           avatar={amy}
           username="amyrobson"
           time="1 month ago"
@@ -40,6 +41,7 @@ function App() {
         />
 
         <Comment
+          id="2"
           avatar={max}
           username="maxblagun"
           time="2 weeks ago"
@@ -48,6 +50,7 @@ function App() {
         />
 
         <Reply
+          id="3"
           avatar={ram}
           username="ramsesmiron"
           time="2 days ago"

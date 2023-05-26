@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import React from 'react'
+import { useState, useRef, useEffect } from 'react';
+import React from 'react';
 
 import '../../styles/user-reply.css';
 /* ICONS  */
@@ -10,12 +10,11 @@ import iconEdit from '../../assets/icon-edit.svg';
 /* ICONS  */
 
 const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
-
-    const [editMode, setEditable] = useState(false)
-    const [editedContent, setEditedContent] = useState(content)
-    const [likeCount, setLikeCount] = useState(likes)
-    const [deleteMode, setDeleteMode] = useState(false)
-    const deleteModalRef = useRef(null)
+    const [editMode, setEditMode] = useState(false);
+    const [editedContent, setEditedContent] = useState(content);
+    const [likeCount, setLikeCount] = useState(likes);
+    const [deleteMode, setDeleteMode] = useState(false);
+    const deleteModalRef = useRef(null);
 
     useEffect(() => {
         if (deleteMode) {
@@ -24,39 +23,43 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
     }, [deleteMode]);
 
     const handleLike = () => {
-        setLikeCount(prevCount => prevCount + 1)
-    }
+        setLikeCount(prevCount => prevCount + 1);
+    };
 
     const handleDislike = () => {
-        setLikeCount(prevCount => prevCount - 1)
-    }
-
+        setLikeCount(prevCount => prevCount - 1);
+    };
 
     const handleEdit = () => {
-        setEditable(true)
-    }
+        setEditMode(true);
+    };
+
+
 
     const handleUpdate = () => {
-        setEditable(false)
-        setEditedContent(editedContent)
-    }
+        setEditMode(false);
+        setEditedContent(editedContent);
+
+    };
+
 
     const handleUpdateContent = e => {
-        setEditedContent(e.target.value)
-    }
+        setEditedContent(e.target.value);
+
+    };
 
     const handleDeleteContent = () => {
         onDelete();
-    }
+        handleCancelDelete()
+    };
 
     const handleShowDelete = () => {
-        setDeleteMode(true)
-    }
+        setDeleteMode(true);
+    };
 
     const handleCancelDelete = () => {
-        setDeleteMode(false)
-    }
-
+        setDeleteMode(false);
+    };
 
     return (
         <>
@@ -64,7 +67,7 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
                 <div className="reply-wrapper">
                     <div className="user-wrapper">
                         <div className="user">
-                            <img src={avatar} aria-hidden="true" alt=""></img>
+                            <img src={avatar} aria-hidden="true" alt="" />
                             <span>{username}</span>
                             <span className="user-identity">you</span>
                         </div>
@@ -75,21 +78,28 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
                     </div>
 
                     <div className="comment">
-                        {editMode ?
+                        {editMode ? (
                             <textarea
                                 className="edit-comment"
                                 value={editedContent}
                                 onChange={handleUpdateContent}
-                            /> : <p><span className='tag'>{tag}</span> {editedContent}</p>
-                        }
-
+                            />
+                        ) : (
+                            <p>
+                                <span className="tag">{tag}</span> {editedContent}
+                            </p>
+                        )}
                     </div>
 
                     <div className="btn-container">
                         <div className="button-wrapper">
-                            <button aria-label="add" onClick={handleLike}><img src={iconPlus} aria-label='true' alt=""></img></button>
+                            <button aria-label="add" onClick={handleLike}>
+                                <img src={iconPlus} aria-label="true" alt="" />
+                            </button>
                             <span>{likeCount}</span>
-                            <button aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
+                            <button aria-label="minus" onClick={handleDislike}>
+                                <img src={iconMinus} aria-label="true" alt="" />
+                            </button>
                         </div>
 
                         <div className="edit-wrapper">
@@ -106,22 +116,22 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
                                 </button>
                             ) : (
                                 <>
-                                    <button className="update" aria-label="update" onClick={handleUpdate} >
+                                    <button className="update" aria-label="update" onClick={handleUpdate}>
                                         Update
                                     </button>
                                 </>
                             )}
-
-
                         </div>
                     </div>
                 </div>
 
                 {deleteMode && (
                     <div className="deleteContainer" ref={deleteModalRef}>
-                        <div className="delete-wrapper" >
+                        <div className="delete-wrapper">
                             <h2>Delete comment</h2>
-                            <span>Are you sure you want to delete this comment. This will remove the comment and can't be undone.</span>
+                            <span>
+                                Are you sure you want to delete this comment? This will remove the comment and can't be undone.
+                            </span>
                             <div className="option-wrapper">
                                 <button className="cancel" aria-label="cancel" onClick={handleCancelDelete}>
                                     NO, CANCEL
@@ -134,10 +144,8 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete }) => {
                     </div>
                 )}
             </div>
-
-
         </>
-    )
-}
+    );
+};
 
 export default UserReply;

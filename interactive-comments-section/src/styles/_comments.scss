@@ -150,7 +150,6 @@
   }
 
   .user-reply-container {
-    margin-top: -1rem;
     width: 100%;
     height: auto;
     display: flex;
@@ -213,7 +212,8 @@
         letter-spacing: 0.5px;
         line-height: 1.25rem;
         font-size: 0.85rem;
-
+        word-wrap: break-word;
+        overflow: auto;
         span {
           font-weight: 700;
           color: variable.$Moderateblue;

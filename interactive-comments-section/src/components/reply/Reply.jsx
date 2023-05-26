@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
@@ -12,21 +12,54 @@ import juliusomo from '../../assets/avatars/image-juliusomo.png';
 
 
 import UserComment from "../comment/UserComment";
+import UserReply from '../reply/UserReply';
 
-const Reply = ({ avatar, username, time, content, likes, tag }) => {
+const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
     const [likeCount, setLikeCount] = useState(likes)
     const [isReply, setIsReply] = useState(false);
-    const [replyComments, setReplyComment] = useState([]);
+    const [replyComments, setReplyComments] = useState([]);
+
+    const [replies, setReplies] = useState(() => {
+        const savedReplies = localStorage.getItem(`replies_${id}`);
+        return savedReplies ? JSON.parse(savedReplies) : [];
+    });
+
+    const handleAddReply = (reply) => {
+        setReplies((prevReplies) => [...prevReplies, reply]);
+    };
+
+
+    useEffect(() => {
+        const saveReplies = localStorage.getItem(`replies_${id}`);
+        if (saveReplies) {
+            setReplies(JSON.parse(saveReplies));
+        }
+    }, [id]);
+
+    useEffect(() => {
+        localStorage.setItem(`replies_${id}`, JSON.stringify(replies));
+    }, [id, replies]);
+
 
     const handleReply = () => {
-        setIsReply(true)
+        setIsReply(true);
 
-        setReplyComment((prevComments) => [
-            ...prevComments,
-            <UserComment key={prevComments.length} username={username} />
-        ]);
-    }
+        const newComment = {
+            username: username,
+        };
+
+        setReplyComments((prevComments) => [...prevComments, newComment]);
+    };
+
+    const handleDeleteContent = (index) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies];
+            updatedReplies.splice(index, 1);
+            return updatedReplies;
+        });
+    };
+
     const handleLike = () => {
         setLikeCount(prevCount => prevCount + 1)
     }
@@ -68,9 +101,27 @@ const Reply = ({ avatar, username, time, content, likes, tag }) => {
 
                 {isReply && (
                     <div className="userComment">
-                        {replyComments}
+                        {replyComments.map((comment, index) => (
+                            <UserComment
+                                key={index}
+                                username={comment.username}
+                                onReply={handleAddReply}
+                            />
+                        ))}
                     </div>
                 )}
+
+                {replies.map((reply, index) => (
+                    <UserReply
+                        key={index}
+                        avatar={reply.avatar}
+                        username={reply.username}
+                        tag={reply.tag}
+                        content={reply.content}
+                        likes={reply.likes}
+                        onDelete={() => handleDeleteContent(index)}
+                    />
+                ))}
 
 
             </div>
