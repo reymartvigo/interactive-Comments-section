@@ -60,6 +60,16 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         });
     };
 
+    const handleUpdateContent = (replyIndex, editedContent) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies];
+            updatedReplies[replyIndex].content = editedContent;
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies)); // Save updated replies to local storage
+            return updatedReplies;
+        });
+    };
+
+
 
 
     return (
@@ -101,6 +111,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
                                 key={index}
                                 username={comment.username}
                                 onReply={handleAddReply}
+
                             />
                         ))}
                     </div>
@@ -110,10 +121,12 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
                         key={index}
                         avatar={reply.avatar}
                         username={reply.username}
+                        time={reply.time}
                         tag={reply.tag}
                         content={reply.content}
                         likes={reply.likes}
                         onDelete={() => handleDeleteContent(index)}
+                        onUpdate={(editedContent) => handleUpdateContent(index, editedContent)}
                     />
                 ))}
             </div>

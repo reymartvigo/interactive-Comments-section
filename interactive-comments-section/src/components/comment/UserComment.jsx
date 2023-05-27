@@ -7,6 +7,8 @@ const UserComment = ({ username, onReply }) => {
     const [commentContent, setCommentContent] = useState('');
     const [showCommentContainer, setShowCommentContainer] = useState(true);
 
+
+    const date = new Date()
     const handleUserReply = () => {
         if (commentContent.trim() === '') {
             return;
@@ -18,6 +20,7 @@ const UserComment = ({ username, onReply }) => {
             tag: `@${username}`,
             content: commentContent,
             likes: 0,
+            time: date.toLocaleTimeString()
         };
 
         setCommentContent('');
@@ -30,6 +33,8 @@ const UserComment = ({ username, onReply }) => {
         e.preventDefault();
         setCommentContent(e.target.value);
     };
+
+
 
     return (
         <>

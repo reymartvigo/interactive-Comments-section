@@ -25,6 +25,9 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
         return savedReplies ? JSON.parse(savedReplies) : [];
     });
 
+
+
+
     const handleAddReply = (reply) => {
         setReplies((prevReplies) => [...prevReplies, reply]);
     };
@@ -56,6 +59,15 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
         setReplies((prevReplies) => {
             const updatedReplies = [...prevReplies];
             updatedReplies.splice(index, 1);
+            return updatedReplies;
+        });
+    };
+
+    const handleUpdateContent = (replyIndex, editedContent) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies];
+            updatedReplies[replyIndex].content = editedContent;
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies)); // Save updated replies to local storage
             return updatedReplies;
         });
     };
@@ -116,10 +128,12 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
                         key={index}
                         avatar={reply.avatar}
                         username={reply.username}
+                        time={reply.time}
                         tag={reply.tag}
                         content={reply.content}
                         likes={reply.likes}
                         onDelete={() => handleDeleteContent(index)}
+                        onUpdate={(editedContent) => handleUpdateContent(index, editedContent)}
                     />
                 ))}
 
