@@ -9,7 +9,7 @@ import iconDelete from '../../assets/icon-delete.svg';
 import iconEdit from '../../assets/icon-edit.svg';
 /* ICONS  */
 
-const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, time }) => {
+const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, time, onLike, onDislike }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedContent, setEditedContent] = useState(content);
     const [likeCount, setLikeCount] = useState(likes);
@@ -17,22 +17,18 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
 
     const deleteModalRef = useRef(null);
 
-
-
     useEffect(() => {
-        if (deleteMode) {
-            deleteModalRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [deleteMode]);
-
-
+        setLikeCount(likes);
+    }, [likes]);
 
     const handleLike = () => {
-        setLikeCount(prevCount => prevCount + 1);
-    };
+        setLikeCount((prevCount) => prevCount + 1);
+        onLike(likeCount);
+    }
 
     const handleDislike = () => {
         setLikeCount(prevCount => prevCount - 1);
+        onDislike(likeCount);
     };
 
     const handleEdit = () => {
@@ -49,7 +45,6 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
 
     const handleUpdateContent = e => {
         setEditedContent(e.target.value);
-
     };
 
     const handleDeleteContent = () => {
@@ -64,6 +59,8 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
     const handleCancelDelete = () => {
         setDeleteMode(false);
     };
+
+
 
     return (
         <>

@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 
+/** ICONS **/
 import iconPlus from '../../assets/icon-plus.svg';
 import iconMinus from '../../assets/icon-minus.svg';
 import iconReply from '../../assets/icon-reply.svg';
+/** ICONS **/
 
+
+/** COMPONENTS **/
 import UserComment from './UserComment';
 import UserReply from '../reply/UserReply';
+/** COMPONENTS **/
+
 
 const Comment = ({ avatar, username, time, content, likes, id }) => {
     const [likeCount, setLikeCount] = useState(likes);
@@ -28,7 +34,6 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         localStorage.setItem(`replies_${id}`, JSON.stringify(replies));
     }, [id, replies]);
 
-
     const handleAddReply = (reply) => {
         setReplies((prevReplies) => [...prevReplies, reply]);
     };
@@ -43,12 +48,28 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         setReplyComments((prevComments) => [...prevComments, newComment]);
     };
 
+
+    useEffect(() => {
+        const savedLikeCount = localStorage.getItem(`comment_${id}_likeCount`);
+        if (savedLikeCount) {
+            setLikeCount(parseInt(savedLikeCount));
+        }
+    }, [id]);
+
     const handleLike = () => {
-        setLikeCount((prevCount) => prevCount + 1);
+        setLikeCount((prevCount) => {
+            const newLikeCount = prevCount + 1;
+            localStorage.setItem(`comment_${id}_likeCount`, newLikeCount);
+            return newLikeCount;
+        });
     };
 
     const handleDislike = () => {
-        setLikeCount((prevCount) => prevCount - 1);
+        setLikeCount((prevCount) => {
+            const newDislikeCount = prevCount - 1;
+            localStorage.setItem(`comment_${id}_likeCount`, newDislikeCount)
+            return newDislikeCount;
+        });
     };
 
 
@@ -69,7 +90,24 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         });
     };
 
+    const handleReplyLike = (replyIndex) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies]
+            updatedReplies[replyIndex].likes += 1
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
+            return updatedReplies
+        })
+    }
 
+
+    const handleReplyDislike = (replyIndex) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies]
+            updatedReplies[replyIndex].likes -= 1
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
+            return updatedReplies
+        })
+    }
 
 
     return (
@@ -127,11 +165,11 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
                         likes={reply.likes}
                         onDelete={() => handleDeleteContent(index)}
                         onUpdate={(editedContent) => handleUpdateContent(index, editedContent)}
+                        onLike={(likeCount) => handleReplyLike(index, likeCount)}
+                        onDislike={(likeCount) => handleReplyDislike(index, likeCount)}
                     />
                 ))}
             </div>
-
-
         </>
     );
 };

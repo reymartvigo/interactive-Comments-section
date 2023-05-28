@@ -1,7 +1,10 @@
 @use "variable";
 .add-comment-container {
-  border-left: 1px solid variable.$Lightgray;
+  //border-left: 1px solid variable.$Lightgray;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   .add-comment-wrapper {
     background-color: white;
