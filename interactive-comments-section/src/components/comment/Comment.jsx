@@ -93,7 +93,13 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
     const handleReplyLike = (replyIndex) => {
         setReplies((prevReplies) => {
             const updatedReplies = [...prevReplies]
-            updatedReplies[replyIndex].likes += 1
+            const commentToUpdate = updatedReplies[replyIndex]
+
+            const updatedReply = {
+                ...commentToUpdate,
+                likes: commentToUpdate.likes ? commentToUpdate.likes + 1 : 1,
+            }
+            updatedReplies[replyIndex] = updatedReply
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
             return updatedReplies
         })
@@ -103,7 +109,13 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
     const handleReplyDislike = (replyIndex) => {
         setReplies((prevReplies) => {
             const updatedReplies = [...prevReplies]
-            updatedReplies[replyIndex].likes -= 1
+            const commentToUpdate = updatedReplies[replyIndex]
+
+            const updatedReply = {
+                ...commentToUpdate,
+                likes: commentToUpdate.likes ? commentToUpdate.likes - 1 : 1
+            }
+            updatedReplies[replyIndex] = updatedReply
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
             return updatedReplies
         })

@@ -9,7 +9,10 @@ const UserComment = ({ username, onReply }) => {
 
 
     const date = new Date()
+
+
     const handleUserReply = () => {
+
         if (commentContent.trim() === '') {
             return;
         }
@@ -50,7 +53,7 @@ const UserComment = ({ username, onReply }) => {
                         ></textarea>
                         <div>
                             <img src={juliusomo} alt="" aria-hidden="true" />
-                            <button onClick={handleUserReply}>REPLY</button>
+                            <button disabled={commentContent.trim() === ''} onClick={handleUserReply}>REPLY</button>
                         </div>
                     </div>
                 </div>

@@ -6,10 +6,17 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Rubik", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
   background: variable.$Verylightgray;
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

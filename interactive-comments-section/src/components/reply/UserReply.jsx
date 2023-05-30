@@ -18,12 +18,19 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
     const deleteModalRef = useRef(null);
 
     useEffect(() => {
+        if (deleteMode) {
+            deleteModalRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [deleteMode]);
+
+
+    useEffect(() => {
         setLikeCount(likes);
     }, [likes]);
 
     const handleLike = () => {
         setLikeCount((prevCount) => prevCount + 1);
-        onLike(likeCount);
+        onLike(likeCount + 1);
     }
 
     const handleDislike = () => {

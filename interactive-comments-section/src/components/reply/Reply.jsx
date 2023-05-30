@@ -82,7 +82,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
     return (
         <>
             <div className="reply-container">
-                <div className="reply-wrapper">
+                <div className="reply-content">
                     <div className="other-wrapper">
                         <div className="user">
                             <img src={avatar} aria-hidden="true" alt=""></img>
@@ -105,7 +105,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
                             <button aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
                         </div>
 
-                        <div className="reply-wrapper">
+                        <div className="reply-button-wrapper">
                             <button aria-label="reply" onClick={handleReply}><img src={iconReply} aria-label='true' alt="" ></img>Reply</button>
                         </div>
                     </div>

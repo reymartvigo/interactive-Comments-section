@@ -4,12 +4,16 @@
 @use "addComment";
 
 .main-wrapper {
-  position: relative;
   width: 100%;
   min-height: 100vh;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border: 1px solid;
+}
+
+@media screen and (min-width: 768px) {
+  .main-wrapper {
+    width: 45rem;
+  }
 }
