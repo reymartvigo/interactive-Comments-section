@@ -17,6 +17,7 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
 
     const deleteModalRef = useRef(null);
 
+    const disabledDislikeBtn = likeCount === 0;
     useEffect(() => {
         if (deleteMode) {
             deleteModalRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -105,7 +106,7 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
                                 <img src={iconPlus} aria-label="true" alt="" />
                             </button>
                             <span>{likeCount}</span>
-                            <button aria-label="minus" onClick={handleDislike}>
+                            <button disabled={disabledDislikeBtn} aria-label="minus" onClick={handleDislike}>
                                 <img src={iconMinus} aria-label="true" alt="" />
                             </button>
                         </div>

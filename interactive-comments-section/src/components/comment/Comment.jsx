@@ -22,7 +22,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         const savedReplies = localStorage.getItem(`replies_${id}`);
         return savedReplies ? JSON.parse(savedReplies) : [];
     });
-
+    const disableDislikeButton = likeCount === 0;
     useEffect(() => {
         const saveReplies = localStorage.getItem(`replies_${id}`);
         if (saveReplies) {
@@ -119,7 +119,13 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
             return updatedReplies
         })
+
+
     }
+
+
+
+
 
 
     return (
@@ -142,7 +148,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
                                 <img src={iconPlus} aria-label="true" alt="" />
                             </button>
                             <span>{likeCount}</span>
-                            <button aria-label="minus" onClick={handleDislike}>
+                            <button disabled={disableDislikeButton} aria-label="minus" onClick={handleDislike}>
                                 <img src={iconMinus} aria-label="true" alt="" />
                             </button>
                         </div>

@@ -25,8 +25,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
         return savedReplies ? JSON.parse(savedReplies) : [];
     });
 
-
-
+    const disabledDislikeButton = likeCount === 0
 
     const handleAddReply = (reply) => {
         setReplies((prevReplies) => [...prevReplies, reply]);
@@ -43,6 +42,14 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
     useEffect(() => {
         localStorage.setItem(`replies_${id}`, JSON.stringify(replies));
     }, [id, replies]);
+
+
+    useEffect(() => {
+        const savedLikeCount = localStorage.getItem(`comment_${id}_likeCount`);
+        if (savedLikeCount) {
+            setLikeCount(parseInt(savedLikeCount));
+        }
+    }, [id]);
 
 
     const handleReply = () => {
@@ -73,11 +80,52 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
     };
 
     const handleLike = () => {
-        setLikeCount(prevCount => prevCount + 1)
-    }
+        setLikeCount((prevCount) => {
+            const newLikeCount = prevCount + 1;
+            localStorage.setItem(`comment_${id}_likeCount`, newLikeCount);
+            return newLikeCount;
+        });
+    };
 
     const handleDislike = () => {
-        setLikeCount(prevCount => prevCount - 1)
+        setLikeCount((prevCount) => {
+            const newDislikeCount = prevCount - 1;
+            localStorage.setItem(`comment_${id}_likeCount`, newDislikeCount)
+            return newDislikeCount;
+        });
+    };
+
+    const handleReplyLike = (replyIndex) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies]
+            const commentToUpdate = updatedReplies[replyIndex]
+
+            const updatedReply = {
+                ...commentToUpdate,
+                likes: commentToUpdate.likes ? commentToUpdate.likes + 1 : 1,
+            }
+            updatedReplies[replyIndex] = updatedReply
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
+            return updatedReplies
+        })
+    }
+
+
+    const handleReplyDislike = (replyIndex) => {
+        setReplies((prevReplies) => {
+            const updatedReplies = [...prevReplies]
+            const commentToUpdate = updatedReplies[replyIndex]
+
+            const updatedReply = {
+                ...commentToUpdate,
+                likes: commentToUpdate.likes ? commentToUpdate.likes - 1 : 1
+            }
+            updatedReplies[replyIndex] = updatedReply
+            localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
+            return updatedReplies
+        })
+
+
     }
     return (
         <>
@@ -102,7 +150,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
                         <div className="button-wrapper">
                             <button aria-label="add" onClick={handleLike}><img src={iconPlus} aria-label='true' alt=""></img></button>
                             <span>{likeCount}</span>
-                            <button aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
+                            <button disabled={disabledDislikeButton} aria-label="minus" onClick={handleDislike}><img src={iconMinus} aria-label='true' alt=""></img></button>
                         </div>
 
                         <div className="reply-button-wrapper">
@@ -134,11 +182,13 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
                         likes={reply.likes}
                         onDelete={() => handleDeleteContent(index)}
                         onUpdate={(editedContent) => handleUpdateContent(index, editedContent)}
+                        onLike={() => handleReplyLike(index)}
+                        onDislike={() => handleReplyDislike(index)}
                     />
                 ))}
 
 
-            </div>
+            </div >
 
 
         </>

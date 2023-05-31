@@ -66,7 +66,7 @@
 @media screen and (min-width: 768px) {
   .add-comment-container {
     //border-left: 1px solid variable.$Lightgray;
-
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;

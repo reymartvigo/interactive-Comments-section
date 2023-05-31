@@ -178,6 +178,7 @@
 
 @media screen and (min-width: 768px) {
   .reply-container {
+    width: 90%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -414,9 +415,9 @@
         }
 
         .comment {
-          padding-left: 3rem;
-
-          width: 100%;
+          margin-left: 3rem;
+          z-index: 1;
+          width: 90%;
           grid-row: 2;
           grid-column: 1/4;
         }

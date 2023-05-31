@@ -346,6 +346,7 @@
   .comment-container {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: 1rem;
   }
   .comment-container .comment-wrapper {
@@ -379,6 +380,7 @@
     padding: 0.5rem 0.7rem;
   }
   .comment-container .userComment {
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -405,7 +407,7 @@
   }
   .comment-container .user-reply-container {
     border-left: 1px solid hsl(223, 19%, 93%);
-    width: 100%;
+    width: 90%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -737,6 +739,7 @@
 
 @media screen and (min-width: 768px) {
   .reply-container {
+    width: 90%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -955,8 +958,9 @@
     color: white;
   }
   .reply-container .user-reply-container .reply-wrapper .comment {
-    padding-left: 3rem;
-    width: 100%;
+    margin-left: 3rem;
+    z-index: 1;
+    width: 90%;
     grid-row: 2;
     grid-column: 1/4;
   }
@@ -1534,6 +1538,7 @@
 
 @media screen and (min-width: 768px) {
   .add-comment-container {
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -1774,6 +1779,8 @@
 
 @media screen and (min-width: 768px) {
   .main-wrapper {
+    justify-content: center;
+    align-items: flex-end;
     width: 45rem;
   }
 }
