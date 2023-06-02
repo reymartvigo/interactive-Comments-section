@@ -28,6 +28,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
     const disabledDislikeButton = likeCount === 0
 
     const handleAddReply = (reply) => {
+        setIsReply(false)
         setReplies((prevReplies) => [...prevReplies, reply]);
     };
 
@@ -53,7 +54,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
 
     const handleReply = () => {
-        setIsReply(true);
+        setIsReply((prevState) => !prevState);
 
         const newComment = {
             username: username,
@@ -161,13 +162,10 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
                 {isReply && (
                     <div className="userComment">
-                        {replyComments.map((comment, index) => (
-                            <UserComment
-                                key={index}
-                                username={comment.username}
-                                onReply={handleAddReply}
-                            />
-                        ))}
+                        <UserComment
+                            username={username}
+                            onReply={handleAddReply}
+                        />
                     </div>
                 )}
 

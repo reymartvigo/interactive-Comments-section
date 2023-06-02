@@ -36,13 +36,14 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
     }, [id, replies]);
 
     const handleAddReply = (reply) => {
+        setIsReply(false)
         setReplies((prevReplies) => [...prevReplies, reply]);
 
     };
 
     const handleReply = () => {
 
-        setIsReply(true);
+        setIsReply((prevState) => !prevState);
 
         const newComment = {
             username: username,
@@ -162,14 +163,10 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
                 </div>
                 {isReply && (
                     <div className="userComment">
-                        {replyComments.map((comment, index) => (
-                            <UserComment
-                                key={index}
-                                username={comment.username}
-                                onReply={handleAddReply}
-
-                            />
-                        ))}
+                        <UserComment
+                            username={username}
+                            onReply={handleAddReply}
+                        />
                     </div>
                 )}
                 {replies.map((reply, index) => (
