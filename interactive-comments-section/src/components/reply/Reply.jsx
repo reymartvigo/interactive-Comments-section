@@ -81,7 +81,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
     const handleLike = () => {
         setLikeCount((prevCount) => {
-            const newLikeCount = prevCount + 1;
+            const newLikeCount = prevCount === likes ? likes + 1 : likes;
             localStorage.setItem(`comment_${id}_likeCount`, newLikeCount);
             return newLikeCount;
         });
@@ -89,7 +89,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
     const handleDislike = () => {
         setLikeCount((prevCount) => {
-            const newDislikeCount = prevCount - 1;
+            const newDislikeCount = prevCount === likes ? likes - 1 : likes;
             localStorage.setItem(`comment_${id}_likeCount`, newDislikeCount)
             return newDislikeCount;
         });
@@ -102,7 +102,7 @@ const Reply = ({ avatar, username, time, content, likes, tag, id }) => {
 
             const updatedReply = {
                 ...commentToUpdate,
-                likes: commentToUpdate.likes ? commentToUpdate.likes + 1 : 1,
+                likes: commentToUpdate.likes > 0 ? commentToUpdate.likes - 1 : 1,
             }
             updatedReplies[replyIndex] = updatedReply
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));

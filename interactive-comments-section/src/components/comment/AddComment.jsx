@@ -91,7 +91,7 @@ const AddComment = () => {
 
             const updatedComment = {
                 ...commentToUpdate,
-                likes: commentToUpdate.likes ? commentToUpdate.likes + 1 : 1,
+                likes: commentToUpdate.likes > 0 ? commentToUpdate.likes - 1 : 1,
             };
 
             updatedComments[replyIndex] = updatedComment;
@@ -100,8 +100,6 @@ const AddComment = () => {
             return updatedComments;
         });
     };
-
-
 
     const handleReplyDislike = (replyIndex) => {
         setComments((prevComments) => {
@@ -119,6 +117,7 @@ const AddComment = () => {
             return updatedComments;
         });
     };
+
 
     return (
         <>

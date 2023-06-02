@@ -30,12 +30,12 @@ const UserReply = ({ avatar, username, content, likes, tag, onDelete, onUpdate, 
     }, [likes]);
 
     const handleLike = () => {
-        setLikeCount((prevCount) => prevCount + 1);
-        onLike(likeCount + 1);
+        setLikeCount((prevCount) => prevCount === likes ? likes + 1 : likes);
+        onLike(likeCount);
     }
 
     const handleDislike = () => {
-        setLikeCount(prevCount => prevCount - 1);
+        setLikeCount(prevCount => prevCount === likes ? likes - 1 : likes);
         onDislike(likeCount);
     };
 

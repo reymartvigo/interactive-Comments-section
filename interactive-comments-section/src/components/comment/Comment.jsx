@@ -22,6 +22,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
         const savedReplies = localStorage.getItem(`replies_${id}`);
         return savedReplies ? JSON.parse(savedReplies) : [];
     });
+
     const disableDislikeButton = likeCount === 0;
     useEffect(() => {
         const saveReplies = localStorage.getItem(`replies_${id}`);
@@ -36,13 +37,16 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
     const handleAddReply = (reply) => {
         setReplies((prevReplies) => [...prevReplies, reply]);
+
     };
 
     const handleReply = () => {
+
         setIsReply(true);
 
         const newComment = {
             username: username,
+
         };
 
         setReplyComments((prevComments) => [...prevComments, newComment]);
@@ -58,7 +62,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
     const handleLike = () => {
         setLikeCount((prevCount) => {
-            const newLikeCount = prevCount + 1;
+            const newLikeCount = prevCount === likes ? likes + 1 : likes;
             localStorage.setItem(`comment_${id}_likeCount`, newLikeCount);
             return newLikeCount;
         });
@@ -66,7 +70,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
     const handleDislike = () => {
         setLikeCount((prevCount) => {
-            const newDislikeCount = prevCount - 1;
+            const newDislikeCount = prevCount === likes ? likes - 1 : likes;
             localStorage.setItem(`comment_${id}_likeCount`, newDislikeCount)
             return newDislikeCount;
         });
@@ -97,7 +101,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
             const updatedReply = {
                 ...commentToUpdate,
-                likes: commentToUpdate.likes ? commentToUpdate.likes + 1 : 1,
+                likes: commentToUpdate.likes > 0 ? commentToUpdate.likes - 1 : 1,
             }
             updatedReplies[replyIndex] = updatedReply
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
@@ -113,7 +117,7 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
             const updatedReply = {
                 ...commentToUpdate,
-                likes: commentToUpdate.likes ? commentToUpdate.likes - 1 : 1
+                likes: commentToUpdate.likes > 0 ? commentToUpdate.likes - 1 : 1,
             }
             updatedReplies[replyIndex] = updatedReply
             localStorage.setItem(`replies_${id}`, JSON.stringify(updatedReplies));
@@ -122,10 +126,6 @@ const Comment = ({ avatar, username, time, content, likes, id }) => {
 
 
     }
-
-
-
-
 
 
     return (
